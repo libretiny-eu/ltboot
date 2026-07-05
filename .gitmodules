@@ -1,0 +1,6 @@
+[submodule "lib/cmake-arm-embedded"]
+	path = lib/cmake-arm-embedded
+	url = https://github.com/kuba2k2/cmake-arm-embedded
+[submodule "lib/CMSIS_6"]
+	path = lib/CMSIS_6
+	url = https://github.com/ARM-software/CMSIS_6
