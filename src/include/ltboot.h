@@ -35,12 +35,12 @@ extern ltb_uart_hw_t *UART_LOG;
 // main.c
 int main(int argc, char *argv[]);
 
-// dl_mode.c
-void ltb_dl_mode(ltb_uart_hw_t *uart);
-
-// crc.c (or port/*/*.c)
+// ltb_crc.c (or port/*/*.c)
 uint16_t ltb_crc16(const void *buf, size_t len); //!< CRC-16/XMODEM
 uint32_t ltb_crc32(const void *buf, size_t len); //!< CRC-32/ISO-HDLC
+
+// ltb_dl_mode.c
+void ltb_dl_mode(ltb_uart_hw_t *uart);
 
 // port/*/*.c
 void ltb_port_init();
