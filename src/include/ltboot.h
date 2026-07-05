@@ -37,6 +37,9 @@ extern ltb_uart_hw_t *UART_LOG;
 // main.c
 int main(int argc, char *argv[]);
 
+// port/*/*.c
+void ltb_port_init();
+
 // port/*/ltb_core.c
 uint32_t ltb_millis();
 void ltb_freq_info(uint32_t *xtal_freq, uint32_t *core_freq);
@@ -53,10 +56,7 @@ void ltb_dl_mode(ltb_uart_hw_t *uart);
 uint32_t ltb_perf_cpu();
 uint32_t ltb_perf_mem(ltb_mem_t mem);
 
-// port/*/*.c
-void ltb_port_init();
-
-// port/*/*_uart.c
+// port/*/ltb_uart.c
 void ltb_uart_init(ltb_uart_hw_t *hw, uint32_t baud);
 void ltb_uart_putchar(ltb_uart_hw_t *hw, char ch);
 char ltb_uart_getchar(ltb_uart_hw_t *hw);
