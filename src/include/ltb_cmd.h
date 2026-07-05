@@ -17,6 +17,9 @@ typedef enum __attribute__((packed)) ltb_cmd_t {
 	LTB_CMD_CHIP_ID		= 0x02, // Request: (none) / Response: chip_id
 	LTB_CMD_SET_BAUD	= 0x03, // Request: set_baud / Response: set_baud
 	LTB_CMD_INFO_MEM	= 0x08, // Request: (none) / Response: info_mem
+	LTB_CMD_INFO_CLK	= 0x09, // Request: (none) / Response: info_clk
+	LTB_CMD_INFO_PERF	= 0x0A, // Request: (none) / Response: info_perf
+	LTB_CMD_REBOOT		= 0x0E, // Request: (none) / Response: (none)
 	LTB_CMD_JUMP_APP	= 0x0F, // Request: jump_app / Response: (none)
 	LTB_CMD_REG_READ	= 0x10, // Request: reg / Response: reg
 	LTB_CMD_REG_WRITE	= 0x11, // Request: reg / Response: reg
@@ -83,6 +86,22 @@ typedef union __attribute__((packed)) ltb_packet_t {
 		ltb_cmd_hdr_t hdr;
 		ltb_mem_info_t memory[];
 	} info_mem;
+
+	struct __attribute__((packed)) {
+		ltb_cmd_hdr_t hdr;
+		uint32_t xtal_freq;
+		uint32_t core_freq;
+	} info_clk;
+
+	struct __attribute__((packed)) {
+		ltb_cmd_hdr_t hdr;
+		uint32_t iter;
+		uint32_t words;
+		uint32_t cpu_ms;
+		uint32_t rom_ms;
+		uint32_t ram_ms;
+		uint32_t flash_ms;
+	} info_perf;
 
 	struct {
 		ltb_cmd_hdr_t hdr;

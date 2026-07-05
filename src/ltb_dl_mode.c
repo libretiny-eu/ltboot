@@ -120,8 +120,37 @@ static ltb_err_t ltb_dl_cmd_handle(ltb_uart_hw_t *uart) {
 			return LTB_ERR_OK;
 		}
 
+		case LTB_CMD_INFO_CLK: {
+			// Request: (none) / Response: info_clk
+			uint32_t xtal_freq, core_freq;
+			ltb_freq_info(&xtal_freq, &core_freq);
+			packet.info_clk.xtal_freq = xtal_freq;
+			packet.info_clk.core_freq = core_freq;
+			packet.hdr.len			  = sizeof(packet.info_clk);
+			return LTB_ERR_OK;
+		}
+
+		case LTB_CMD_INFO_PERF: {
+			// Request: (none) / Response: info_perf
+			packet.info_perf.iter  = LTB_PERF_ITER;
+			packet.info_perf.words = LTB_PERF_WORDS;
+			// run the benchmark
+			packet.info_perf.cpu_ms	  = ltb_perf_cpu();
+			packet.info_perf.rom_ms	  = ltb_perf_mem(LTB_MEM_ROM);
+			packet.info_perf.ram_ms	  = ltb_perf_mem(LTB_MEM_RAM);
+			packet.info_perf.flash_ms = ltb_perf_mem(LTB_MEM_FLASH);
+			packet.hdr.len			  = sizeof(packet.info_perf);
+			return LTB_ERR_OK;
+		}
+
 		case LTB_CMD_JUMP_APP: {
 			// Request: jump_app / Response: (none)
+			// TODO
+			break;
+		}
+
+		case LTB_CMD_REBOOT: {
+			// Request: (none) / Response: (none)
 			// TODO
 			break;
 		}
