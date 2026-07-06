@@ -2,17 +2,23 @@
 
 #include "ln882h.h"
 
+#define FUNC_UART0_TX 2
+#define FUNC_UART0_RX 3
+#define FUNC_UART1_TX 6
+#define FUNC_UART1_RX 7
+#define FUNC_UART2_TX 8
+#define FUNC_UART2_RX 9
+
 void ltb_uart_init(ltb_uart_hw_t *hw, uint32_t baud) {
-	uint32_t port_id;
 	switch ((uintptr_t)hw) {
 		case UART0_BASE:
-			SYSC_CMP_SW_CLKG->UART0_GATE_EN = true, port_id = 0;
+			SYSC_CMP_SW_CLKG->UART0_GATE_EN = true;
 			break;
 		case UART1_BASE:
-			SYSC_CMP_SW_CLKG->UART1_GATE_EN = true, port_id = 1;
+			SYSC_CMP_SW_CLKG->UART1_GATE_EN = true;
 			break;
 		case UART2_BASE:
-			SYSC_CMP_SW_CLKG->UART2_GATE_EN = true, port_id = 2;
+			SYSC_CMP_SW_CLKG->UART2_GATE_EN = true;
 			break;
 		default:
 			return;
@@ -33,12 +39,23 @@ void ltb_uart_init(ltb_uart_hw_t *hw, uint32_t baud) {
 	hal_uart_tx_mode_en(hw, true);
 	hal_uart_en(hw, true);
 
-	// ROM code uses:
-	// - GPIOA2 = UART0_TX
-	// - GPIOA3 = UART0_RX
-	// - GPIOA9 = UART1_TX
-	// - GPIOA8 = UART1_RX
-	uart_io_pin_request(&port_id);
+	switch ((uintptr_t)hw) {
+		case UART0_BASE:
+			SYSC_CMP_FUNC_ISEL_0->IO02_SEL = FUNC_UART0_TX; // FULLMUX2 (GPIOA2)
+			SYSC_CMP_FUNC_ISEL_0->IO03_SEL = FUNC_UART0_RX; // FULLMUX3 (GPIOA3)
+			SYSC_CMP_FUNC_EN->IEN |= (1 << 3) | (1 << 2);
+			break;
+		case UART1_BASE:
+			SYSC_CMP_FUNC_ISEL_4->IO19_SEL = FUNC_UART1_TX; // FULLMUX19 (GPIOB9)
+			SYSC_CMP_FUNC_ISEL_4->IO18_SEL = FUNC_UART1_RX; // FULLMUX18 (GPIOB8)
+			SYSC_CMP_FUNC_EN->IEN |= (1 << 19) | (1 << 18);
+			break;
+		case UART2_BASE:
+			SYSC_CMP_FUNC_ISEL_3->IO15_SEL = FUNC_UART2_TX; // FULLMUX15 (GPIOB5)
+			SYSC_CMP_FUNC_ISEL_4->IO16_SEL = FUNC_UART2_RX; // FULLMUX16 (GPIOB6)
+			SYSC_CMP_FUNC_EN->IEN |= (1 << 16) | (1 << 15);
+			break;
+	}
 }
 
 void ltb_uart_putchar(ltb_uart_hw_t *hw, char ch) {

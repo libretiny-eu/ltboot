@@ -21,6 +21,5 @@ static uint16_t (*const crc16_ccitt)(const void *, size_t)		   = (void *)0x4039;
 static uint32_t (*const ln_crc32_signle_cal)(const void *, size_t) = (void *)0x50F9;
 static void (*const hal_uart_en)(void *, bool)					   = (void *)0x6965;
 static void (*const hal_uart_init)(void *, uart_init_t_def *)	   = (void *)0x698B;
-static void (*const uart_io_pin_request)(uint32_t *)			   = (void *)0x69E5;
 static void (*const hal_uart_rx_mode_en)(void *, bool)			   = (void *)0x6C29;
 static void (*const hal_uart_tx_mode_en)(void *, bool)			   = (void *)0x6C41;

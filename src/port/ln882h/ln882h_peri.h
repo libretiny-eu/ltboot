@@ -93,6 +93,66 @@ typedef struct {
 	uint32_t : 3;				 // 31 : 29
 } ln882h_sysc_cmp_sw_clkg_t;
 
+typedef struct {
+	uint32_t IEN : 20; // 19 : 0
+	uint32_t : 12;	   // 31 : 20
+} ln882h_sysc_cmp_func_en_t;
+
+typedef struct {
+	uint32_t IO00_SEL : 6; // 5  : 0
+	uint32_t : 2;		   // 7  : 6
+	uint32_t IO01_SEL : 6; // 13 : 8
+	uint32_t : 2;		   // 15 : 14
+	uint32_t IO02_SEL : 6; // 21 : 16
+	uint32_t : 2;		   // 23 : 22
+	uint32_t IO03_SEL : 6; // 29 : 24
+	uint32_t : 2;		   // 31 : 30
+} ln882h_sysc_cmp_func_isel_0_t;
+
+typedef struct {
+	uint32_t IO04_SEL : 6; // 5  : 0
+	uint32_t : 2;		   // 7  : 6
+	uint32_t IO05_SEL : 6; // 13 : 8
+	uint32_t : 2;		   // 15 : 14
+	uint32_t IO06_SEL : 6; // 21 : 16
+	uint32_t : 2;		   // 23 : 22
+	uint32_t IO07_SEL : 6; // 29 : 24
+	uint32_t : 2;		   // 31 : 30
+} ln882h_sysc_cmp_func_isel_1_t;
+
+typedef struct {
+	uint32_t IO08_SEL : 6; // 5  : 0
+	uint32_t : 2;		   // 7  : 6
+	uint32_t IO09_SEL : 6; // 13 : 8
+	uint32_t : 2;		   // 15 : 14
+	uint32_t IO10_SEL : 6; // 21 : 16
+	uint32_t : 2;		   // 23 : 22
+	uint32_t IO11_SEL : 6; // 29 : 24
+	uint32_t : 2;		   // 31 : 30
+} ln882h_sysc_cmp_func_isel_2_t;
+
+typedef struct {
+	uint32_t IO12_SEL : 6; // 5  : 0
+	uint32_t : 2;		   // 7  : 6
+	uint32_t IO13_SEL : 6; // 13 : 8
+	uint32_t : 2;		   // 15 : 14
+	uint32_t IO14_SEL : 6; // 21 : 16
+	uint32_t : 2;		   // 23 : 22
+	uint32_t IO15_SEL : 6; // 29 : 24
+	uint32_t : 2;		   // 31 : 30
+} ln882h_sysc_cmp_func_isel_3_t;
+
+typedef struct {
+	uint32_t IO16_SEL : 6; // 5  : 0
+	uint32_t : 2;		   // 7  : 6
+	uint32_t IO17_SEL : 6; // 13 : 8
+	uint32_t : 2;		   // 15 : 14
+	uint32_t IO18_SEL : 6; // 21 : 16
+	uint32_t : 2;		   // 23 : 22
+	uint32_t IO19_SEL : 6; // 29 : 24
+	uint32_t : 2;		   // 31 : 30
+} ln882h_sysc_cmp_func_isel_4_t;
+
 typedef struct ln882h_sysc_awo_syspll_ctrl_t {
 	uint32_t DIV : 5;			 // 4  : 0
 	uint32_t CPAUX_IBIT : 3;	 // 7  : 5
@@ -111,6 +171,12 @@ typedef struct ln882h_sysc_awo_syspll_ctrl_t {
 } ln882h_sysc_awo_syspll_ctrl_t;
 
 static volatile ln882h_sysc_cmp_sw_clkg_t *SYSC_CMP_SW_CLKG			= (void *)(SYSC_CMP_BASE + 0x10);
+static volatile ln882h_sysc_cmp_func_en_t *SYSC_CMP_FUNC_EN			= (void *)(SYSC_CMP_BASE + 0x1C);
+static volatile ln882h_sysc_cmp_func_isel_0_t *SYSC_CMP_FUNC_ISEL_0 = (void *)(SYSC_CMP_BASE + 0x20);
+static volatile ln882h_sysc_cmp_func_isel_1_t *SYSC_CMP_FUNC_ISEL_1 = (void *)(SYSC_CMP_BASE + 0x24);
+static volatile ln882h_sysc_cmp_func_isel_2_t *SYSC_CMP_FUNC_ISEL_2 = (void *)(SYSC_CMP_BASE + 0x28);
+static volatile ln882h_sysc_cmp_func_isel_3_t *SYSC_CMP_FUNC_ISEL_3 = (void *)(SYSC_CMP_BASE + 0x2C);
+static volatile ln882h_sysc_cmp_func_isel_4_t *SYSC_CMP_FUNC_ISEL_4 = (void *)(SYSC_CMP_BASE + 0x30);
 static volatile ln882h_sysc_awo_syspll_ctrl_t *SYSC_AWO_SYSPLL_CTRL = (void *)(SYSC_AWO_BASE + 0x70);
 
 typedef struct ltb_uart_hw_t {
